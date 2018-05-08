@@ -14,13 +14,13 @@ class ShapeDetector:
 		if len(approx) == 3:
 			shape = "triangle"
 
-		# for firkanter eller rektangler vil det vaere fire toppunkter
+		# for kvadrater eller rektangler vil det vaere fire toppunkter
 		elif len(approx) == 4:
 			# regn ut boksen og konturene for aspect ratioen
 			(x, y, w, h) = cv2.boundingRect(approx)
 			ar = w / float(h)
 
-			# en firkant vil ha en AR ca. lik en, ellers er det en rektangel
+			# et kvadrat vil ha en AR tilnaermet 1, ellers er det et rektangel
 			shape = "square" if ar >= 0.95 and ar <= 1.05 else "rectangle"
 
 		# pentagon vil ha fire toppunkter
