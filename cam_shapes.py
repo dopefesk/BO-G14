@@ -3,11 +3,10 @@ import argparse
 import imutils
 import cv2
 
-#cam = cv2.VideoCapture(0)
 # konstruer en argumenter parser og parse argumentene
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help ="path to the input image")
+ap.add_argument("-i", "--img", required=True,
+	help ="choose image")
 args = vars(ap.parse_args())
 
 
@@ -40,10 +39,12 @@ for c in cnts:
 	# regn ut den midtre delen av konturene
 	# detekter figuren utifra konturene
 	M = cv2.moments(c)
-	cX = int((M["m10"] / 1) * ratio)
-	cY = int((M["m01"] / 1) * ratio)
-	#cX = int((M["m10"] / M["m00"]) * ratio)
-	#cY = int((M["m01"] / M["m00"]) * ratio)
+	# vil unngaa 0 som verdi i nevneren
+	if M["m00"] != 0:
+		cX = int((M["m10"] / M["m00"]) * ratio)
+		cY = int((M["m01"] / M["m00"]) * ratio)
+	else:
+		cX, cY = 0, 0
 	shape = sd.detect(c)
 
 	# multipliser saa konturene (x,y) ko-ordinater med resize ratio
