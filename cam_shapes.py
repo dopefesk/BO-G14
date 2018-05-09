@@ -15,7 +15,7 @@ args = vars(ap.parse_args())
 # paa den maaten kan vi approksimere formene bedre
 image = cv2.imread(args["image"])
 #ret, image = cam.read()
-resized = imutils.resize(image, width=300)
+resized = imutils.resize(image, width=800)
 ratio = image.shape[0] / float(resized.shape[0])
 
 # konverter bildet til graaskala og blur det litt
@@ -60,5 +60,5 @@ for c in cnts:
 
 	print("There are a total of "+str(total)+" squares in the image")
 
-	cv2.imshow("Image", image)
+	cv2.imshow("Image", resized)
 	cv2.waitKey(0)
